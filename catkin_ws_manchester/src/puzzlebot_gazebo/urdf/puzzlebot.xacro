@@ -14,7 +14,6 @@
   </link>
   
   <joint name="base_link_to_chassis" type="fixed">
-	   <origin xyz="-0.05 0 0" rpy="0 0 0"/>
 	   <parent link="base_link"/>
 	   <child link="chassis"/>
   </joint>
@@ -207,7 +206,7 @@
     </actuator>
 </transmission>  
 <!-- Hokuyo Laser -->
-  <link name="hokuyo_link">
+  <!--link name="hokuyo_link">
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -234,6 +233,34 @@
     <origin xyz="0.06 0 0.101" rpy="0 0 0"/>
     <parent link="chassis"/>
     <child link="hokuyo_link"/>
+  </joint-->
+  <link name="camera_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://puzzlebot_gazebo/meshes/kinect.dae"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <joint name="kinect_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0.06 0 0.12" rpy="0 0 0"/>
+    <parent link="chassis"/>
+    <child link="camera_link"/>
   </joint>
 
 </robot>
